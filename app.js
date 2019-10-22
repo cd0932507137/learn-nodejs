@@ -1,9 +1,11 @@
 var content = require('./data.js');
 var express = require('express')
-var app = express()
 var path = require('path');
 var engine = require('ejs-locals')
 var bodyParser = require('body-parser')
+var user = require('./routes/user')
+
+var app = express()
 app.engine('ejs', engine)
 app.set('views', './views')
 app.set('view engine', 'ejs')
@@ -26,6 +28,8 @@ console.log(path.basename('./xx/yy/zz.js'));
 console.log(path.extname('./xx/yy/zz.js'));
 // 分析路徑
 console.log(path.parse('./xx/yy/zz.js'));
+
+app.use('/user', user)
 
 // 增加靜態檔案的路徑
 app.use(express.static('public'))
