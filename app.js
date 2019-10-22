@@ -29,8 +29,10 @@ app.get('/', (req, res) => {
 app.get('/user/:name', (req, res) => {
   var myName = req.params.name
   console.log(myName)
-  res.send(myName)
+  var limit = req.query.limit
+  res.send(myName + ',' + limit + '筆資料')
 })
+// http://localhost:3000/user/josh?limit=30
 
 //  監聽 port 
 var port = process.env.PORT || 3000
