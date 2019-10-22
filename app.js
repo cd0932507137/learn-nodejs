@@ -22,6 +22,12 @@ console.log(path.extname('./xx/yy/zz.js'));
 // 分析路徑
 console.log(path.parse('./xx/yy/zz.js'));
 
+// 有先後順序,都放最前面
+app.use((req, res, next) => {
+  console.log('In this place')
+  next()
+})
+
 app.get('/', (req, res) => {
   res.send('test 123')
 }) 
