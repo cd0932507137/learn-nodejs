@@ -68,6 +68,7 @@ app.get('/search', (req, res) => {
 
 app.post('/searchList', (req, res) => {
   console.log(req.body)
+  res.redirect('search')
 })
 
 app.use((req, res, next) => {
