@@ -1,4 +1,6 @@
 var content = require('./data.js');
+var express = require('express')
+var app = express()
 var path = require('path');
 var a = 1;
 
@@ -19,3 +21,17 @@ console.log(path.basename('./xx/yy/zz.js'));
 console.log(path.extname('./xx/yy/zz.js'));
 // 分析路徑
 console.log(path.parse('./xx/yy/zz.js'));
+
+app.get('/', (req, res) => {
+  res.send('test 123')
+}) 
+
+app.get('/user/:name', (req, res) => {
+  var myName = req.params.name
+  console.log(myName)
+  res.send(myName)
+})
+
+//  監聽 port 
+var port = process.env.PORT || 3000
+app.listen(port)
