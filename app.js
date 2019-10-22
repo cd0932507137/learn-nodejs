@@ -2,6 +2,11 @@ var content = require('./data.js');
 var express = require('express')
 var app = express()
 var path = require('path');
+var engine = require('ejs-locals')
+var bodyParser = require('body-parser')
+app.engine('ejs', engine)
+app.set('views', './views')
+app.set('view engine', 'ejs')
 var a = 1;
 
 console.log(a);
@@ -25,6 +30,10 @@ console.log(path.parse('./xx/yy/zz.js'));
 // 增加靜態檔案的路徑
 app.use(express.static('public'))
 
+// 增加body解析
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
+
 // var login = (req, res, next) => {
 //   var _url = req.url
 //   if (_url !== '/') {
@@ -41,7 +50,7 @@ app.get('/', (req, res) => {
 // 有先後順序
 app.use((req, res, next) => {
   console.log('In this place')
-  kk()
+  // kk()
   next()
 })
 
@@ -52,6 +61,14 @@ app.get('/user/:name', (req, res) => {
   res.send(myName + ',' + limit + '筆資料')
 })
 // http://localhost:3000/user/josh?limit=30
+
+app.get('/search', (req, res) => {
+  res.render('Search')
+})
+
+app.post('/searchList', (req, res) => {
+  console.log(req.body)
+})
 
 app.use((req, res, next) => {
   res.status(404).send('Sorry Page NotFound')
