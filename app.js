@@ -22,17 +22,20 @@ console.log(path.extname('./xx/yy/zz.js'));
 // 分析路徑
 console.log(path.parse('./xx/yy/zz.js'));
 
-var login = (req, res, next) => {
-  var _url = req.url
-  if (_url !== '/') {
-    next()
-  } else {
-    res.send('login error!!')
-  }
-}
+// 增加靜態檔案的路徑
+app.use(express.static('public'))
 
-app.get('/', login, (req, res) => {
-  res.send('Index Page')
+// var login = (req, res, next) => {
+//   var _url = req.url
+//   if (_url !== '/') {
+//     next()
+//   } else {
+//     res.send('login error!!')
+//   }
+// }
+
+app.get('/', (req, res) => {
+  res.send('<html><head></head><body><img src="/images/og-start-bootstrap.png" /></body></html>')
 })
 
 // 有先後順序
