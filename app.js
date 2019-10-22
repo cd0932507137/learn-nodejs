@@ -22,15 +22,16 @@ console.log(path.extname('./xx/yy/zz.js'));
 // 分析路徑
 console.log(path.parse('./xx/yy/zz.js'));
 
-// 有先後順序,都放最前面
-app.use((req, res, next) => {
-  console.log('In this place')
-  next()
-})
-
 app.get('/', (req, res) => {
   res.send('test 123')
-}) 
+})
+
+// 有先後順序
+app.use((req, res, next) => {
+  console.log('In this place')
+  kk()
+  next()
+})
 
 app.get('/user/:name', (req, res) => {
   var myName = req.params.name
@@ -39,6 +40,16 @@ app.get('/user/:name', (req, res) => {
   res.send(myName + ',' + limit + '筆資料')
 })
 // http://localhost:3000/user/josh?limit=30
+
+app.use((req, res, next) => {
+  res.status(404).send('Sorry Page NotFound')
+})
+
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('something error')
+})
+
 
 //  監聽 port 
 var port = process.env.PORT || 3000
