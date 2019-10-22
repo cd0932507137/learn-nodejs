@@ -22,8 +22,17 @@ console.log(path.extname('./xx/yy/zz.js'));
 // 分析路徑
 console.log(path.parse('./xx/yy/zz.js'));
 
-app.get('/', (req, res) => {
-  res.send('test 123')
+var login = (req, res, next) => {
+  var _url = req.url
+  if (_url !== '/') {
+    next()
+  } else {
+    res.send('login error!!')
+  }
+}
+
+app.get('/', login, (req, res) => {
+  res.send('Index Page')
 })
 
 // 有先後順序
